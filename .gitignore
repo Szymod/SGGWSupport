@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/packages
+/ServiceSiteWeb/bin
+/ServiceSiteWeb/obj/Debug
+/ServiceSiteWeb.v12.suo
+*.suo
