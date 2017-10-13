@@ -8,3 +8,9 @@
 /ServiceSiteWeb/obj/Debug
 /ServiceSiteWeb.v12.suo
 *.suo
+/SGGWSupportWeb/bin
+/SGGWSupportWeb/obj/Debug/SGGWSupportWeb.pdb
+/SGGWSupportWeb/obj/Debug/SGGWSupportWeb.dll
+/SGGWSupportWeb/obj/Debug/SGGWSupportWeb.csprojResolveAssemblyReference.cache
+/SGGWSupportWeb/obj/Debug/SGGWSupportWeb.csproj.FileListAbsolute.txt
+/SGGWSupportWeb/obj/Debug/SGGWSupportWeb.csproj.CopyComplete

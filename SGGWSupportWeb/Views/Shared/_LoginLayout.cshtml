@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - SGGWSupport</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,20 +22,25 @@
                 </a>
             </div>
             <div class="navbar-collapse collapse">
-                @*Nawigacja*@
+                @* @Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
+    <div class="container-fluid" style="min-height:500px">
+        <div class="row" style="margin:0px;">
 
-        <footer class="text-center text-info">
-            <p>&copy; 2017 - SGGW Support</p>
-        </footer>
+            <div class="col-md-12">
+                @RenderBody()
+            </div>
+        </div>
     </div>
+    <footer class="text-center text-info">
+        <p>&copy; 2017 - SGGW Support</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

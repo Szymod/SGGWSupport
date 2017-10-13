@@ -1,0 +1,45 @@
+﻿@using System.Configuration
+@model SGGWSupportWeb.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Zaloguj się";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="login-container">
+    <div class="login-content">
+        <header class="login-header">@ViewBag.Title</header>
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Authorize", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-md">
+                            @Html.TextBoxFor(m => m.Login, new { @class = "form-control", placeholder = "Login" })
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Login, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-group input-group-md">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Hasło" })
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3 col-md-offset-9">
+                        <input type="submit" value="Zaloguj" class="btn btn-primary" />
+                    </div>
+                </div>            
+            }
+        </section>
+    </div>
+</div>
