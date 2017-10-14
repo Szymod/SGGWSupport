@@ -5,53 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-condensed table-striped">
+<table class="table table-condensed table-striped ticket-table">
     <tr>
-        <th></th>
-
-
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
+        <th style="width:40%; word-wrap: break-word;" class="text-center">
+            <em>@Html.DisplayNameFor(model => model.Title)</em>
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
+        <th style="width:13%" class="text-center">
+            <em>@Html.DisplayNameFor(model => model.Priority)</em>
         </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
+        <th style="width:13%" class="text-center">
+            <em>@Html.DisplayNameFor(model => model.Status)</em>
         </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.TicketEditTime)
+        <th style="width:13%" class="text-center">
+            <em>@Html.DisplayNameFor(model => model.TicketEditTime)</em>
         </th>
-
         <th></th>
     </tr>
-        <tr>
-            <td>
-             
-            </td>
-
-            <td>
-                Instalacja MS Office 2016
-            </td>
-            <td>
-                Średni
-            </td>
-            <td>
-                W trakcie
-            </td>
-
-            <td>
-                14/10/2017 16:30
-            </td>
-
-            <td class="text-right">
-                @Url.Action("GetTicket", "Ticket", null)
-                <button class="show-btn btn ticket-btn btn-primary" data-url='@Url.Action("GetTicket", "Ticket", null)'>Szczegóły</button>
-                <button class="show-btn btn ticket-btn btn-danger" data-url='@Url.Action("EditTicket", "Ticket", null)'>Edytuj</button>
-            </td>
-        </tr>
-
+        
+    <tr>
+        <td>
+            Instalacja MS Office 2016
+        </td>
+        <td class="text-center">
+            <button class="btn ticket-btn btn-warning">Średni</button>
+        </td>
+        <td class="text-center">
+            W trakcie
+        </td>
+        <td class="text-center">
+            14/10/2017 16:30
+        </td>
+        <td class="text-right">
+            @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+            @Html.ActionLink("Szczegóły", "GetTicket", null, new { @class = "btn ticket-btn btn-primary" })
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td class="text-right">
+            @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+            @Html.ActionLink("Szczegóły", "GetTicket", null, new { @class = "btn ticket-btn btn-primary" })
+        </td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-right">
+            @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+            @Html.ActionLink("Szczegóły", "GetTicket", null, new { @class = "btn ticket-btn btn-primary" })
+        </td>
+    </tr>
 </table>
 

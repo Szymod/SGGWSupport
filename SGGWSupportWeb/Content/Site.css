@@ -57,3 +57,8 @@ a {
 .ticket-btn {
     line-height: 0.4;
 }
+
+.ticket-table {
+    border-left: 2px solid #cdd0d4;
+    border-right: 2px solid #cdd0d4;
+}
