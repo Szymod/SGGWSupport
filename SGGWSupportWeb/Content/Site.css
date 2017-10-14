@@ -53,3 +53,7 @@ a {
         background-color: #470F7F;
         border-color: #240840;
     }
+
+.ticket-btn {
+    line-height: 0.4;
+}

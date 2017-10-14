@@ -1,0 +1,57 @@
+﻿@model SGGWSupportWeb.Models.TicketViewModel
+
+@{
+    ViewBag.Title = "Zgłoszenia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-condensed table-striped">
+    <tr>
+        <th></th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.TicketEditTime)
+        </th>
+
+        <th></th>
+    </tr>
+        <tr>
+            <td>
+             
+            </td>
+
+            <td>
+                Instalacja MS Office 2016
+            </td>
+            <td>
+                Średni
+            </td>
+            <td>
+                W trakcie
+            </td>
+
+            <td>
+                14/10/2017 16:30
+            </td>
+
+            <td class="text-right">
+                @Url.Action("GetTicket", "Ticket", null)
+                <button class="show-btn btn ticket-btn btn-primary" data-url='@Url.Action("GetTicket", "Ticket", null)'>Szczegóły</button>
+                <button class="show-btn btn ticket-btn btn-danger" data-url='@Url.Action("EditTicket", "Ticket", null)'>Edytuj</button>
+            </td>
+        </tr>
+
+</table>
+
