@@ -28,5 +28,27 @@ namespace SGGWSupportWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = HttpContext.User;
+
+            //zmiana hasła użytkownika zgodnie z dostarczonym API
+
+            return View();
+        }
+
     }
 }
