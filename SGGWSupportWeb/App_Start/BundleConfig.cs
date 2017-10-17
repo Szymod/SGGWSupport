@@ -27,6 +27,12 @@ namespace SGGWSupportWeb
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/login.css"));
+
+
+            bundles.Add(new StyleBundle("~/Content/changePassword").Include(
+                      "~/Content/changePassword.css"));
+            bundles.Add(new ScriptBundle("~/bundles/changePassword").Include(
+                        "~/Scripts/changePassword.js"));
         }
     }
 }

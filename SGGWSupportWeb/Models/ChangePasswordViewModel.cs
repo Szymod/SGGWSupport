@@ -6,8 +6,13 @@ namespace SGGWSupportWeb.Models
     {
         [Required]
         [DataType(DataType.Password)]
+        [Display(Name = "Stare hasło")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
         [StringLength(32, ErrorMessage = "{0} musi mieć minimalnie {2} znaki, a maksymalnie {1}.", MinimumLength = 8)]
-        [Display(Name = "Hasło")]
+        [Display(Name = "Nowe hasło")]
         public string Password { get; set; }
 
         [Required]
