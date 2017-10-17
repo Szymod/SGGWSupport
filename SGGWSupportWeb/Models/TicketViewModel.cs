@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace SGGWSupportWeb.Models
 {
@@ -9,8 +11,7 @@ namespace SGGWSupportWeb.Models
         [Display(Name = "Tytuł")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "Pole jest wymagane")]
-        public string Status { get; set; }
+        public TicketStatus Status { get; set; }
 
         [Required(ErrorMessage = "Pole jest wymagane")]
         [Display(Name = "Priorytet")]
@@ -38,4 +39,12 @@ namespace SGGWSupportWeb.Models
 
 
     }
+
+    public enum TicketStatus
+    {
+        Przyjęte,
+        [Display(Name = "W trakcie")]
+        WTrakcie, 
+        Wykonane
+    };
 }
