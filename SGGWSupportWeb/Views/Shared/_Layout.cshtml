@@ -21,6 +21,8 @@
                     <img src="~/Content/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     <span class="brand-name">SGGW Support</span>
                 </a>
+                @Html.ActionLink("Statistics","Index","Statistics", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Ticket", "Index", "Ticket", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 @*Nawigacja*@

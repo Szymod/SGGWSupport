@@ -1,0 +1,118 @@
+﻿@model IEnumerable<SGGWSupportWeb.Models.StatiscticsModel>
+
+@{
+    ViewBag.Title = "Statistics";
+}
+
+<body onload="loadStatistics()">
+    <dl class="dl-horizontal">
+        <dt>Enter Username:</dt>
+        <dd>
+            <input type="text" title="Input username to search for..." id="usernameFilter" onchange="loadStatistics()">
+        </dd>
+    </dl> 
+
+    <p>Assigned incident from last 7 days:</p>
+    <div id="partialStatictics">
+    </div>
+    <br/>
+
+    <p>Assigned incident older last 7 days:</p>
+    <div id="partialStatictics2">
+    </div>
+    <br />
+
+    <p>Resolved incident from last 7 days:</p>
+    <div id="partialStatictics3">
+    </div>
+    <br />
+
+    <p>Resolved incident older last 7 days:</p>
+    <div id="partialStatictics4">
+    </div>
+
+    <style>
+
+    </style>
+    <script type="text/javascript">
+
+        $(function () {
+            loadStatistics();
+        });
+        function loadStatistics() {
+            $.ajax({
+                url: ('@(Url.Action("_Statistics","Statistics",null,Request.Url.Scheme))?username=' + $('#usernameFilter').val() + '&filterType=1'), // /
+                datatype: "html",
+                type: "POST",
+                beforeSend: function () {
+                    document.getElementById('partialStatictics').setAttribute("align", "center");
+                    $('#partialStatictics').html('<image src="/Content/Loading.gif" alt="Loading, please wait"/>');
+                },
+                success: function (data) {
+                    document.getElementById('partialStatictics').removeAttribute("align");
+                    $('#partialStatictics').html(data);
+                },
+                error: function () {
+                    document.getElementById('partialStatictics').removeAttribute("align");
+                    $('#partialStatictics').html("ERROR");
+                }
+            });
+
+            $.ajax({
+                url: ('@(Url.Action("_Statistics","Statistics",null,Request.Url.Scheme))?username=' + $('#usernameFilter').val() + '&filterType=2'), // /
+                datatype: "html",
+                type: "POST",
+                beforeSend: function () {
+                    document.getElementById('partialStatictics2').setAttribute("align", "center");
+                    $('#partialStatictics2').html('<image src="/Content/Loading.gif" alt="Loading, please wait"/>');
+                },
+                success: function (data) {
+                    document.getElementById('partialStatictics2').removeAttribute("align");
+                    $('#partialStatictics2').html(data);
+                },
+                error: function () {
+                    document.getElementById('partialStatictics2').removeAttribute("align");
+                    $('#partialStatictics2').html("ERROR");
+                }
+            });
+
+            $.ajax({
+                url: ('@(Url.Action("_Statistics","Statistics",null,Request.Url.Scheme))?username=' + $('#usernameFilter').val() + '&filterType=3'), // /
+                datatype: "html",
+                type: "POST",
+                beforeSend: function () {
+                    document.getElementById('partialStatictics3').setAttribute("align", "center");
+                    $('#partialStatictics3').html('<image src="/Content/Loading.gif" alt="Loading, please wait"/>');
+                },
+                success: function (data) {
+                    document.getElementById('partialStatictics3').removeAttribute("align");
+                    $('#partialStatictics3').html(data);
+                },
+                error: function () {
+                    document.getElementById('partialStatictics3').removeAttribute("align");
+                    $('#partialStatictics3').html("ERROR");
+                }
+            });
+
+            $.ajax({
+                url: ('@(Url.Action("_Statistics","Statistics",null,Request.Url.Scheme))?username=' + $('#usernameFilter').val() + '&filterType=4'), // /
+                datatype: "html",
+                type: "POST",
+                beforeSend: function () {
+                    document.getElementById('partialStatictics4').setAttribute("align", "center");
+                    $('#partialStatictics4').html('<image src="/Content/Loading.gif" alt="Loading, please wait"/>');
+                },
+                success: function (data) {
+                    document.getElementById('partialStatictics4').removeAttribute("align");
+                    $('#partialStatictics4').html(data);
+                },
+                error: function () {
+                    document.getElementById('partialStatictics4').removeAttribute("align");
+                    $('#partialStatictics4').html("ERROR");
+                }
+            });
+
+        }
+    </script>
+</body>
+

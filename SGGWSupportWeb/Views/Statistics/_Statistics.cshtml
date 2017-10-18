@@ -1,0 +1,27 @@
+﻿@model IEnumerable<SGGWSupportWeb.Models.StatiscticsModel>
+
+<div style="height: 100%; width: 100%">
+    <table id="myTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Incident No.</th>
+                <th>Username</th>
+                <th>Priority</th>
+                <th>Category</th>
+                <th>Request Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="rekord">
+                    <td><text>@Html.DisplayFor(modelItem => item.IncidentNo)</text></td>
+                    <td><text>@Html.DisplayFor(modelItem => item.Username)</text></td>
+                    <td><text>@Html.DisplayFor(modelItem => item.Priority)</text></td>
+                    <td><text>@Html.DisplayFor(modelItem => item.Category)</text></td>
+                    <td><text>@Html.DisplayFor(modelItem => item.RequestDate)</text></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
