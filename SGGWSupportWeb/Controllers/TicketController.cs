@@ -29,7 +29,7 @@ namespace SGGWSupportWeb.Controllers
             return View();
         }
 
-        public ActionResult GetTicket()
+        public ActionResult TicketDetails()
         {
             return View();
         }

@@ -5,66 +5,78 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table table-condensed table-striped ticket-table">
-    <tr>
-        <th style="width:40%; word-wrap: break-word;" class="text-center">
-            <em>@Html.DisplayNameFor(model => model.Title)</em>
-        </th>
-        <th style="width:13%" class="text-center">
-            <em>@Html.DisplayNameFor(model => model.Priority)</em>
-        </th>
-        <th style="width:13%" class="text-center">
-            <em>@Html.DisplayNameFor(model => model.Status)</em>
-        </th>
-        <th style="width:13%" class="text-center">
-            <em>@Html.DisplayNameFor(model => model.TicketEditTime)</em>
-        </th>
-        <th></th>
-    </tr>
-        
-    <tr>
-        <td>
-            Instalacja MS Office 2016
-        </td>
-        <td class="text-center">
-            <button class="btn ticket-btn btn-warning">Średni</button>
-        </td>
-        <td class="text-center">
-            W trakcie
-        </td>
-        <td class="text-center">
-            14/10/2017 16:30
-        </td>
-        <td class="text-right">
-            @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
-            @Html.ActionLink("Szczegóły", "GetTicket", null, new { @class = "btn ticket-btn btn-primary" })
-        </td>
-    </tr>
-    
-    <tr>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td class="text-right">
-            @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
-            @Html.ActionLink("Szczegóły", "GetTicket", null, new { @class = "btn ticket-btn btn-primary" })
-        </td>
-    </tr>
-    
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="text-right">
-            @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
-            @Html.ActionLink("Szczegóły", "GetTicket", null, new { @class = "btn ticket-btn btn-primary" })
-        </td>
-    </tr>
-</table>
+<br />
+<div class="form-group">
+    <div class="col-md-1">
+        @Html.ActionLink("Nowe zgłoszenie", "AddTicket", "Ticket", null, new { @class = "btn btn-primary" })
+    </div>
+</div>
 
+<br /><br />
+
+<div class="panel panel-primary ticket-index-panel">
+    <div class="panel-heading ticket-index-header"></div>
+        
+        <div class="panel-body">
+            <table class="table table-condensed table-striped ticket-table">
+                <tr>
+                    <th style="width:40%; word-wrap: break-word;" class="text-center">
+                        <em>@Html.DisplayNameFor(model => model.Title)</em>
+                    </th>
+                    <th style="width:13%" class="text-center">
+                        <em>@Html.DisplayNameFor(model => model.Priority)</em>
+                    </th>
+                    <th style="width:13%" class="text-center">
+                        <em>@Html.DisplayNameFor(model => model.Status)</em>
+                    </th>
+                    <th style="width:13%" class="text-center">
+                        <em>@Html.DisplayNameFor(model => model.TicketEditTime)</em>
+                    </th>
+                    <th></th>
+                </tr>
+
+                <tr>
+                    <td>
+                        Instalacja MS Office 2016
+                    </td>
+                    <td class="text-center">
+                        <button class="btn ticket-btn btn-warning">Średni</button>
+                    </td>
+                    <td class="text-center">
+                        W trakcie
+                    </td>
+                    <td class="text-center">
+                        14/10/2017 16:30
+                    </td>
+                    <td class="text-right">
+                        @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+                        @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+                        @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+                        @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+   
+</div>

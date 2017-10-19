@@ -204,6 +204,7 @@
     <Content Include="Views\Ticket\AddTicket.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Statistics\_Statistics.cshtml" />
+    <Content Include="Views\Ticket\TicketDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

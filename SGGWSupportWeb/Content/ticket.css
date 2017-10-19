@@ -1,10 +1,27 @@
 ﻿.ticket-input {
-max-width:100%;
+    max-width: 100%;
+    border: 2px solid #cccccc;
 }
 
 .ticket-textarea {
     max-width: 100%;
     width: 100%;
     border-radius: 4px;
-    border: 1px solid #cccccc;
+    border: 2px solid #cccccc;
+}
+
+.ticket-comment-input {
+    max-width: 85%;
+}
+
+.comment-input {
+    display:inline-block;
+}
+
+.ticket-index-panel {
+    border-color: #470F7F;
+}
+
+.ticket-index-panel > .ticket-index-header {
+    background-color: #470F7F;  
 }

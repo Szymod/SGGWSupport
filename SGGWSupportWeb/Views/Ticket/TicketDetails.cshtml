@@ -1,0 +1,68 @@
+﻿@model SGGWSupportWeb.Models.TicketViewModel
+
+@{
+    ViewBag.Title = "Zgłoszenie nr";
+}
+
+<h2><i>Zgłoszenie nr 1001</i></h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priority)
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketAddTime)
+        </dt>
+
+        <dd>
+            
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketEditTime)
+        </dt>
+
+        <dd>
+           
+        </dd>
+
+    </dl>
+</div>
+<div class="form-group">
+    <div class="col-md-offset-10">
+        @Html.ActionLink("Powrót", "Index", "Home", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+   
