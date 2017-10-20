@@ -1,0 +1,47 @@
+﻿@model SGGWSupportWeb.Models.ArchivalViewModel
+
+@{
+    ViewBag.Title = "Archiwalne incydenty";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary ticket-index-panel">
+    <div class="panel-heading ticket-index-header"></div>
+
+    <div class="panel-body">
+        <table class="table table-condensed table-striped ticket-table">
+            <tr>
+                <th style="width:40%; word-wrap: break-word;" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.Title)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.IncidentNo)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.Priority)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.Category)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.Status)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.Requestor)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.AssignTo)</em>
+                </th>
+                <th style="width:13%" class="text-center">
+                    <em>@Html.DisplayNameFor(model => model.ResolvedDate)</em>
+                </th>
+                <th></th>
+            </tr>
+
+
+        </table>
+
+    </div>
+
+</div>
+
