@@ -21,12 +21,17 @@
                     <img src="~/Content/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     <span class="brand-name">SGGW Support</span>
                 </a>
-                @Html.ActionLink("Statistics","Index","Statistics", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Zgłoszenia", "Index", "Ticket", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Archiwalne", "Index", "Archival", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*Nawigacja*@
+                @Html.ActionLink("Statistics", "Index", "Statistics", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Zgłoszenia", "Index", "Ticket", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Archiwalne", "Index", "Archival", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="float: right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Zmień hasło", "ChangePassword", "Authorize", new { area = "" }, new { @class = "navbar-brand" })
+                    }
+                </div>
             </div>
         </div>
     </div>
