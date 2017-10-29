@@ -3,10 +3,23 @@
     padding-bottom: 20px;
 }
 
+    body::after {
+        background: url('logo.png') no-repeat center fixed;
+        content: " ";
+        opacity: 0.05;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: -1;
+    }
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
+
 
 input,
 select,

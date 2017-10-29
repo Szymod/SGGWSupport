@@ -23,26 +23,27 @@
                 </a>
             </div>
             <div class="navbar-collapse collapse">
-                @Html.ActionLink("Statistics", "Index", "Statistics", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Zgłoszenia", "Index", "Ticket", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Archiwalne", "Index", "Archival", new { area = "" }, new { @class = "navbar-brand" })
-                <div style="float: right">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Statistics", "Index", "Statistics", new { area = "" }, new { })</li>
+                    <li>@Html.ActionLink("Zgłoszenia", "Index", "Ticket", new { area = "" }, new { })</li>
+                    <li>@Html.ActionLink("Archiwalne", "Index", "Archival", new { area = "" }, new { })</li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @Html.ActionLink("Zmień hasło", "ChangePassword", "Authorize", new { area = "" }, new { @class = "navbar-brand" })
+                        <li>@Html.ActionLink("Zmień hasło", "ChangePassword", "Authorize", new { area = "" }, new { })</li>
                     }
-                </div>
+                </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-
         <footer class="text-center text-info">
             <p>&copy; 2017 - SGGW Support</p>
         </footer>
     </div>
-
+    <div class="background"></div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
