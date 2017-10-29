@@ -4,9 +4,6 @@
 
 /.vs
 /packages
-/ServiceSiteWeb/bin
-/ServiceSiteWeb/obj/Debug
-/ServiceSiteWeb.v12.suo
 *.suo
 /SGGWSupportWeb/bin
 /SGGWSupportWeb/obj
@@ -17,3 +14,4 @@
 /SGGWSupportWeb/obj/Debug/SGGWSupportWeb.csproj.CopyComplete
 /SGGWSupportWeb/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 /SGGWSupportWeb/obj/Debug/SGGWSupportWeb.csproj.CoreCompileInputs.cache
+/SGGWSupportWeb/SGGWSupportWeb.csproj.user
