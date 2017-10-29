@@ -9,6 +9,7 @@
 /ServiceSiteWeb.v12.suo
 *.suo
 /SGGWSupportWeb/bin
+/SGGWSupportWeb/obj
 /SGGWSupportWeb/obj/Debug/SGGWSupportWeb.pdb
 /SGGWSupportWeb/obj/Debug/SGGWSupportWeb.dll
 /SGGWSupportWeb/obj/Debug/SGGWSupportWeb.csprojResolveAssemblyReference.cache
