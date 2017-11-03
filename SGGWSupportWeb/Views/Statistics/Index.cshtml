@@ -3,12 +3,15 @@
 @{
     ViewBag.Title = "Statistics";
 }
-
+<meta http-equiv="content-type" content="text/plain; charset=UTF-8" />
 <body onload="loadStatistics()">
     <dl class="dl-horizontal">
         <dt><em>Enter Username:</em></dt>
         <dd>
-            <input type="text" title="Input username to search for..." id="usernameFilter" onchange="loadStatistics()"> @*oninput*@
+            <input type="text" title="Input username to search for..." id="usernameFilter">
+            <button class="btn ticket-btn btn-primary" onclick="loadStatistics()">Filter</button>
+            <button class="btn ticket-btn btn-primary" onclick="resetFilter()">Reset</button>
+            <button class="btn ticket-btn btn-primary" onclick="exportToXLS()">Export to XLS</button>
         </dd>
     </dl> 
       
@@ -39,6 +42,15 @@
         $(function () {
             loadStatistics();
         });
+        function exportToXLS() {
+
+        }
+
+        function resetFilter() {
+            $('#usernameFilter').val('');
+            loadStatistics();
+        }
+
         function loadStatistics() {
             $.ajax({
                 url: ('@(Url.Action("_Statistics","Statistics",null,Request.Url.Scheme))?username=' + $('#usernameFilter').val() + '&filterType=1'), // /
