@@ -1,27 +1,62 @@
 ﻿@model IEnumerable<SGGWSupportWeb.Models.StatiscticsModel>
 
-<div style="height: 100%; width: 100%">
-    <table id="myTable" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Incident No.</th>
-                <th>Username</th>
-                <th>Priority</th>
-                <th>Category</th>
-                <th>Request Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr class="rekord">
-                    <td><text>@Html.DisplayFor(modelItem => item.IncidentNo)</text></td>
-                    <td><text>@Html.DisplayFor(modelItem => item.Username)</text></td>
-                    <td><text>@Html.DisplayFor(modelItem => item.Priority)</text></td>
-                    <td><text>@Html.DisplayFor(modelItem => item.Category)</text></td>
-                    <td><text>@Html.DisplayFor(modelItem => item.RequestDate)</text></td>
+<div class="panel panel-primary ticket-index-panel" style="height: 100%; width: 100%">
+    <div class="panel-heading ticket-index-header"></div>
+    <div class="panel-body">
+        <table id="myTable" class="table table-condensed table-striped ticket-table">
+            <thead>
+                <tr>
+                    <th style="width:15%; word-wrap: break-word;">
+                        <em>Incident No.</em>
+                    </th>
+                    <th style="width:35%; word-wrap: break-word;">
+                        <em>Username</em>
+                    </th>
+                    <th style="width:10%; word-wrap: break-word;">
+                        <em>Priority</em>
+                    </th>
+                    <th style="width:20%; word-wrap: break-word;">
+                        <em>Category</em>
+                    </th>
+                    <th style="width:20%; word-wrap: break-word;">
+                        <em>Request Date</em>
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="rekord">
+                        <td><text>@Html.DisplayFor(modelItem => item.IncidentNo)</text></td>
+                        <td><text>@Html.DisplayFor(modelItem => item.Username)</text></td>
+                        <td>
+                            @if (item.Priority.ToLower() == "top")
+                            {
+                                <button class="btn ticket-btn btn-block btn-primary">@item.Priority</button>
+                            }
+                            else if (item.Priority.ToLower() == "low")
+                            {
+                                <button class="btn ticket-btn btn-block btn-primary">@item.Priority</button>
+                            }
+                            else if (item.Priority.ToLower() == "high")
+                            {
+                                <button class="btn ticket-btn btn-block btn-danger">@item.Priority</button>
+                            }
+                            else if (item.Priority.ToLower() == "medium")
+                            {
+                                <button class="btn ticket-btn btn-block btn-warning">@item.Priority</button>
+                            }
+                            else
+                            {
+                                <button class="btn ticket-btn btn-block btn-success">@item.Priority</button>
+
+                            }
+                        </td>
+                        <td><text>@Html.DisplayFor(modelItem => item.Category)</text></td>
+                        <td><text>@Html.DisplayFor(modelItem => item.RequestDate)</text></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
