@@ -26,6 +26,7 @@ namespace SGGWSupportWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
+                      "~/Content/navbar-fixed-side.css",
                       "~/Content/login.css",
                       "~/Content/ticket.css"));
 
