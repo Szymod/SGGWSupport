@@ -156,6 +156,7 @@
     <Compile Include="Models\AuthorizeViewModels.cs" />
     <Compile Include="Models\StatiscticsModel.cs" />
     <Compile Include="Models\TicketViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
