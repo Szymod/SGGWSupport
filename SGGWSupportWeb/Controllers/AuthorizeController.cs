@@ -1,7 +1,11 @@
-﻿using SGGWSupportWeb.Models;
+﻿using Newtonsoft.Json;
+using SGGWSupportWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -36,7 +40,7 @@ namespace SGGWSupportWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(ChangePasswordViewModel model)
+        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -46,6 +50,17 @@ namespace SGGWSupportWeb.Controllers
             var user = HttpContext.User;
 
             //zmiana hasła użytkownika zgodnie z dostarczonym API
+            var client = new HttpClient();
+            var apiModel = new { starehaslo = model.OldPassword, kluczsesji = "klucz", nowehaslo = model.ConfirmPassword };
+
+            var content = new StringContent(JsonConvert.SerializeObject(apiModel), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("Http://api.sggw.pl/sggwsupport/zmianahasla", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("","Zmiana hasła nie powiodła się.");
+                return View(model);
+            }
 
             return View();
         }
