@@ -45,7 +45,7 @@
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> Administrator <b class="caret"></b></a><ul class="dropdown-menu">
-                                        <li><a href="#">Użytkownicy</a></li>
+                                        <li>@Html.ActionLink("Użytkownicy", "Index", "User", new { area = "" }, new { })</li>
                                         <li><a href="#">Uprawnienia</a></li>
                                         <li class="divider"></li>
                                         <li class="dropdown-header">Słowniki</li>
@@ -54,7 +54,6 @@
                                         <li><a href="#">Statusy</a></li>
                                     </ul>
                                 </li>
-
                                 <li>@Html.ActionLink("Zgłoszenia", "Index", "Ticket", new { area = "" }, new { })</li>
                                 <li>@Html.ActionLink("Zgłoszenia archiwalne", "Index", "Archival", new { area = "" }, new { })</li>
                                 <li>@Html.ActionLink("Statystyki", "Index", "Statistics", new { area = "" }, new { })</li>
