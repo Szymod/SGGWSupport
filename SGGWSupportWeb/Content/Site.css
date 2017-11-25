@@ -15,7 +15,7 @@
 }
 
     .body-content::after {
-        position: absolute;
+        position: fixed;
         content: "";
         background: url('logo.png');
         background-position: 60% 50%;
