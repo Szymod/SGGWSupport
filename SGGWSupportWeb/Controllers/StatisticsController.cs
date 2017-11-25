@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SGGWSupportWeb.Controllers
 {
+    [Authorize]
     public class StatisticsController : Controller
     {
         // GET: Statistics
