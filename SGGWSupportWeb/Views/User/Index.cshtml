@@ -1,0 +1,102 @@
+﻿@model SGGWSupportWeb.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Użytkownicy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3>Lista użytkowników</h3>
+        <br /><br />
+        <div class="form-group">
+            <div class="col-md-1">
+                @Html.ActionLink("Nowy użytkownik", "AddUser", "User", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Login)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNo)
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>jan.kowalski</td>
+                <td>Jan</td>
+                <td>Kowalski</td>
+                <td>jan.kowalski@wp.pl</td>
+                <td>625 441 889</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn btn-primary" })
+
+                </td>
+            </tr>
+            <tr>
+                <td>marek.nowak</td>
+                <td>Marek</td>
+                <td>Nowak</td>
+                <td>mareczek1224@o2.pl</td>
+                <td>515 221 342</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn btn-primary" })
+
+                </td>
+            </tr>
+            <tr>
+                <td>tymon.cichy</td>
+                <td>Tymon</td>
+                <td>Cichy</td>
+                <td>kierownik_TM@gmail.com</td>
+                <td>632 550 121</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn btn-primary" })
+
+                </td>
+            </tr>
+            <tr>
+                <td>Jan.Kowalski</td>
+                <td>Jan</td>
+                <td>Kowalski</td>
+                <td>jan.kowalski@wp.pl</td>
+                <td>625 441 889</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn btn-primary" })
+
+                </td>
+            </tr>
+        </table>
+
+        <hr />
+
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Powrót", "Index", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
