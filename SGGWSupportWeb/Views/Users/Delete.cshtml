@@ -1,0 +1,32 @@
+﻿@model SGGWSupportWeb.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Usuwanie użytkownika";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h3>Czy na pewno chcesz usunąć użytkownika?</h3>
+    <br/>
+
+    <div class="form-group">
+       <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Tak" class="btn btn-success" />
+            @Html.ActionLink("Nie", "UserDetails", new { userId = Model.Id }, new { @class = "btn btn-default" })
+        </div>
+        
+    </div>
+
+    <div>
+        @Html.ActionLink("Powrót", "UserDetails", new { userId = Model.Id })
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

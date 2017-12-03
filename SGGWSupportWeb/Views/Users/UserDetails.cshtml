@@ -1,0 +1,78 @@
+﻿@model SGGWSupportWeb.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Użytkownicy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h3>Szczegóły użytkownika</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+               @Html.DisplayNameFor(model => model.Login)
+            </dt>
+
+            <dd>
+                @Model.Login
+            </dd>
+
+            <dt>
+               @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Model.FirstName
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+
+            <dd>
+                @Model.LastName
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Model.Email
+            </dd>
+
+            <dt>
+               @Html.DisplayNameFor(model => model.PhoneNo)
+            </dt>
+
+            <dd>
+                @Model.PhoneNo
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Permissions)
+            </dt>
+
+            @foreach (var permission in Model.Permissions)
+            {
+            <dd>
+               @permission.Name
+            </dd>
+            }
+        </dl>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Powrót", "Index", "Users")
+    @Html.ActionLink("Edycja", "Edit", new { userId = Model.Id })
+    @Html.ActionLink("Usuń", "Delete", new { userId = Model.Id })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

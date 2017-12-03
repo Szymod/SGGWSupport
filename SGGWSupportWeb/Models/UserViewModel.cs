@@ -8,6 +8,8 @@ namespace SGGWSupportWeb.Models
 {
     public class UserViewModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Pole jest wymagane")]
         [Display(Name = "Login")]
         public string Login { get; set; }
@@ -31,6 +33,8 @@ namespace SGGWSupportWeb.Models
 
         [Display(Name = "Numer telefonu")]
         public string PhoneNo { get; set; }
+        [Display(Name = "Uprawnienia")]
+        public List<Permission> Permissions { get; set; }
 
     }
 }
