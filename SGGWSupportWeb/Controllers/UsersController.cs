@@ -13,6 +13,7 @@ using System.Web.Security;
 
 namespace SGGWSupportWeb.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
 
@@ -26,9 +27,9 @@ namespace SGGWSupportWeb.Controllers
 
             var body = new[] { user1, user2 };
 
-            var userList = new List<UserViewModel>();
+            var userList = new List<UsersViewModel>();
             foreach(var user in body){
-                UserViewModel u = new UserViewModel
+                UsersViewModel u = new UsersViewModel
                 {
                     Id = user.id,
                     Login = user.login,
@@ -71,7 +72,7 @@ namespace SGGWSupportWeb.Controllers
                 permissions.Add(permission);
             }
 
-            UserViewModel userModel = new UserViewModel
+            UsersViewModel userModel = new UsersViewModel
             {
                 Id = user.id,
                 Login = user.login,
@@ -134,7 +135,7 @@ namespace SGGWSupportWeb.Controllers
                 permissions.Add(permission);
             }
 
-            UserViewModel userModel = new UserViewModel
+            UsersViewModel userModel = new UsersViewModel
             {
                 Id = user.id,
                 Login = user.login,
@@ -166,7 +167,7 @@ namespace SGGWSupportWeb.Controllers
   
         public ActionResult Delete(int userId)
         {
-            UserViewModel userModel = new UserViewModel
+            UsersViewModel userModel = new UsersViewModel
             {
                 Id = userId
             };

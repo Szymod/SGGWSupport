@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using SGGWSupportWeb.Models;
 
 namespace SGGWSupportWeb.Models
 {
-    public class UserViewModel
+    public class UsersViewModel
     {
         public int Id { get; set; }
 
@@ -33,6 +34,7 @@ namespace SGGWSupportWeb.Models
 
         [Display(Name = "Numer telefonu")]
         public string PhoneNo { get; set; }
+
         [Display(Name = "Uprawnienia")]
         public List<Permission> Permissions { get; set; }
 

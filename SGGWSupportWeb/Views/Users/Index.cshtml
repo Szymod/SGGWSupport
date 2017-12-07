@@ -1,4 +1,4 @@
-﻿@model List<SGGWSupportWeb.Models.UserViewModel>
+﻿@model List<SGGWSupportWeb.Models.UsersViewModel>
 
 @{
     ViewBag.Title = "Użytkownicy";
@@ -35,8 +35,8 @@
                 <td>@user.Email</td>
                 <td>@user.PhoneNo</td>
                 <td>
-                    @Html.ActionLink("Edytuj", "Edit", new { userId = user.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Szczegóły", "UserDetails", new { userId = user.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edytuj", "Edit", new { userId = user.Id }, new { @class = "ticket-btn btn btn-success" })
+                    @Html.ActionLink("Szczegóły", "UserDetails", new { userId = user.Id }, new { @class = "ticket-btn btn btn-primary" })
                 </td>
             </tr>   
             }
