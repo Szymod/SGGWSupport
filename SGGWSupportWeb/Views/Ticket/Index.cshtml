@@ -1,4 +1,4 @@
-﻿@model SGGWSupportWeb.Models.TicketViewModel
+﻿@model IEnumerable<SGGWSupportWeb.Models.TicketViewModel>
 
 @{
     ViewBag.Title = "Zgłoszenia";
@@ -33,19 +33,19 @@
                     </th>
                     <th></th>
                 </tr>
-
+                @foreach (var item in Model) {
                 <tr>
                     <td>
-                        Instalacja MS Office 2016
+                        @Html.DisplayFor(model => item.Title)
                     </td>
                     <td class="text-center">
-                        <button class="btn ticket-btn btn-warning">Średni</button>
+                        @Html.DisplayFor(model => item.Priority)
                     </td>
                     <td class="text-center">
-                        W trakcie
+                        @Html.DisplayFor(model => item.Status)
                     </td>
                     <td class="text-center">
-                        14/10/2017 16:30
+                        @Html.DisplayFor(model => item.TicketEditTime)
                     </td>
                     <td class="text-right">
                         @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
@@ -53,27 +53,8 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-right">
-                        @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
-                        @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
-                    </td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-right">
-                        @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
-                        @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
-                    </td>
-                </tr>
+                
+                }
             </table>
 
         </div>
