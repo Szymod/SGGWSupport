@@ -22,13 +22,15 @@ namespace SGGWSupportWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
+            var client = new HttpClient();
+            var response = await client.GetAsync($"http://webservice.adscan.pl:8090/auth?login={model.Login}&password={model.Password}");
+            Session.SetToken(new UserIdentity() { Token = response.Headers.GetValues("X-AUTH-TOKEN").First() });
             FormsAuthentication.SetAuthCookie(model.Login, false);
             return RedirectToAction("Index", "Home");
         }
@@ -52,11 +54,8 @@ namespace SGGWSupportWeb.Controllers
 
             //zmiana hasła użytkownika zgodnie z dostarczonym API
             var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", "kluczAPI");
-            var apiModel = new { password = model.ConfirmPassword };
-
-            var content = new StringContent(JsonConvert.SerializeObject(apiModel), Encoding.UTF8, "application/json");
-            var response = await client.PatchAsync("Http://api.sggw.pl/sggwsupport/zmianahasla", content);
+            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+            var response = await client.PatchAsync($"http://webservice.adscan.pl:8090/users/user/password?password={model.ConfirmPassword}");
 
             if (!response.IsSuccessStatusCode)
             {

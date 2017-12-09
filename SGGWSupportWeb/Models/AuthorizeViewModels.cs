@@ -18,4 +18,9 @@ namespace SGGWSupportWeb.Models
         public string Password { get; set; }
 
     }
+
+    public class UserIdentity
+    {
+        public string Token { get; set; }
+    }
 }
