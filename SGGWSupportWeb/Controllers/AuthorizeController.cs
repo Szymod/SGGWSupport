@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SGGWSupportWeb.Extensions;
 using SGGWSupportWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -51,10 +52,11 @@ namespace SGGWSupportWeb.Controllers
 
             //zmiana hasła użytkownika zgodnie z dostarczonym API
             var client = new HttpClient();
-            var apiModel = new { starehaslo = model.OldPassword, kluczsesji = "klucz", nowehaslo = model.ConfirmPassword };
+            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", "kluczAPI");
+            var apiModel = new { password = model.ConfirmPassword };
 
             var content = new StringContent(JsonConvert.SerializeObject(apiModel), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("Http://api.sggw.pl/sggwsupport/zmianahasla", content);
+            var response = await client.PatchAsync("Http://api.sggw.pl/sggwsupport/zmianahasla", content);
 
             if (!response.IsSuccessStatusCode)
             {
