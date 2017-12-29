@@ -149,6 +149,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="Extensions\SessionExtensions.cs" />
+    <Compile Include="Models\APIModels.cs" />
     <Compile Include="Models\ArchivalViewModel.cs" />
     <Compile Include="Models\ChangePasswordViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />

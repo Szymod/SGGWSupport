@@ -30,9 +30,18 @@ namespace SGGWSupportWeb.Controllers
             }
             var client = new HttpClient();
             var response = await client.GetAsync($"http://webservice.adscan.pl:8090/auth?login={model.Login}&password={model.Password}");
-            Session.SetToken(new UserIdentity() { Token = response.Headers.GetValues("X-AUTH-TOKEN").First() });
-            FormsAuthentication.SetAuthCookie(model.Login, false);
-            return RedirectToAction("Index", "Home");
+            if (response.IsSuccessStatusCode)
+            {
+                var message = JsonConvert.DeserializeObject<APIResponse>(await response.Content.ReadAsStringAsync());
+                if (message.ErrorCode == "0")
+                {
+                    Session.SetToken(new UserIdentity() { Token = response.Headers.GetValues("X-AUTH-TOKEN").First() });
+                    FormsAuthentication.SetAuthCookie(model.Login, false);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            ModelState.AddModelError("", "Nieprawidłowy login lub hasło.");
+            return View(model);
         }
 
         [HttpGet]
@@ -57,9 +66,18 @@ namespace SGGWSupportWeb.Controllers
             client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
             var response = await client.PatchAsync($"http://webservice.adscan.pl:8090/users/user/password?password={model.ConfirmPassword}");
 
-            if (!response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                ModelState.AddModelError("","Zmiana hasła nie powiodła się.");
+                var message = JsonConvert.DeserializeObject<APIResponse>(await response.Content.ReadAsStringAsync());
+                if (message.ErrorCode != "0")
+                {
+                    ModelState.AddModelError("", "Zmiana hasła nie powiodła się.");
+                    return View(model);
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Zmiana hasła nie powiodła się.");
                 return View(model);
             }
 
@@ -67,9 +85,16 @@ namespace SGGWSupportWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult Logout()
+        public async Task<ActionResult> Logout()
         {
-            FormsAuthentication.SignOut();
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+            var response = await client.DeleteAsync($"http://webservice.adscan.pl:8090/auth");
+            if (response.IsSuccessStatusCode)
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Index", "Home");
+            }
             return RedirectToAction("Index", "Home");
         }
 
