@@ -38,7 +38,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label" })
                     <div>
-                        @Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control ticket-input" } })
+                        @Html.DropDownList("Priority", ViewData["priorities"] as List<SelectListItem>, "Wybierz priorytet", htmlAttributes: new { @class = "form-control ticket-input" })
+                        @*@Html.EditorFor(model => model.Priority, new { htmlAttributes = new { @class = "form-control ticket-input" } })*@
                         @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -47,7 +48,8 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label" })
                     <div>
-                        @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control ticket-input" } })
+                        @Html.DropDownList("Category", ViewData["categories"] as List<SelectListItem>, "Wybierz kategorię", htmlAttributes: new { @class = "form-control ticket-input" })
+                        @*@Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control ticket-input" } })*@
                         @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
                     </div>
                 </div>
