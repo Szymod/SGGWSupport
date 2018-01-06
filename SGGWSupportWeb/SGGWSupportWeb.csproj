@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -151,6 +152,7 @@
     <Compile Include="Extensions\SessionExtensions.cs" />
     <Compile Include="Models\APIModels.cs" />
     <Compile Include="Models\ArchivalViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ChangePasswordViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -159,6 +161,7 @@
     </Compile>
     <Compile Include="Models\AuthorizeViewModels.cs" />
     <Compile Include="Models\Permission.cs" />
+    <Compile Include="Models\PriorityViewModel.cs" />
     <Compile Include="Models\StatiscticsModel.cs" />
     <Compile Include="Models\TicketViewModel.cs" />
     <Compile Include="Models\UsersViewModel.cs" />
