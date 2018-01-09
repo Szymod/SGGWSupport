@@ -5,9 +5,7 @@ using System.Web;
 
 namespace SGGWSupportWeb.Models
 {
-    public class CategoryViewModel
+    public class CategoryViewModel : BaseDictionaryViewModel
     {
-        public int id { set; get; }
-        public string Name { set; get; }
     }
 }
