@@ -14,7 +14,7 @@
 
     <div class="form-group">
        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Tak" class="btn btn-success" />
+           <input type="submit" value="Tak" class="btn btn-success" />
             @Html.ActionLink("Nie", "UserDetails", new { userId = Model.Id }, new { @class = "btn btn-default" })
         </div>
         
@@ -23,7 +23,6 @@
     <div>
         @Html.ActionLink("Powrót", "UserDetails", new { userId = Model.Id })
     </div>
-
 }
 
 @section Scripts {

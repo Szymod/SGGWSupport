@@ -4,168 +4,241 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SGGWSupportWeb.Models;
+using SGGWSupportWeb.Extensions;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Web.Security;
+
 
 namespace SGGWSupportWeb.Controllers
 {
-    [Authorize]
     public class UsersController : Controller
     {
-
-        public ActionResult Index()
+        string Baseurl = "http://webservice.adscan.pl:8090/";
+        private Permission adminPermission = new Permission
         {
-            // TODO: http get /users
+            Id = 10,
+            Name = "Admin",
+            Code = "ADMIN"
 
-            //mock
-            var user1 = new { id = 1, login = "JanK" ,firstName = "Jan", lastName = "Kowalski", email = "jkowalski@gmail.com", phone = "411224124" };
-            var user2 = new { id = 2, login = "JanK", firstName = "Adam", lastName = "Nowak", email = "nowak@gmail.com", phone = "241215252" };
+        };
+        private Permission userPermission = new Permission
+        {
+            Id = 11,
+            Name = "User",
+            Code = "USER"
 
-            var body = new[] { user1, user2 };
+        };
 
-            var userList = new List<UsersViewModel>();
-            foreach(var user in body){
-                UsersViewModel u = new UsersViewModel
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            List<UsersViewModel> users = new List<UsersViewModel>();
+
+            var client = GetInitializedHttpClient();
+
+            var response = await client.GetAsync("users");
+
+                if (response.IsSuccessStatusCode)
                 {
-                    Id = user.id,
-                    Login = user.login,
-                    PhoneNo = user.phone,
-                    LastName = user.lastName,
-                    FirstName = user.firstName,
-                    Email = user.email
-                };
-                userList.Add(u);
+                var message = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<dynamic>(message);
+                var userList = result.body;
+                foreach (var user in userList)
+                {
+                    UsersViewModel u = new UsersViewModel
+                    {
+                        Login = user.login,
+                        Id = user.id,
+                        PhoneNo = user.phone,
+                        LastName = user.lastName,
+                        FirstName = user.firstName,
+                        Email = user.email
+                    };
+
+                    users.Add(u);
+                }
             }
-        
-            return View(userList);
+
+            return View(users);
         }
 
-
-        public ActionResult UserDetails(int userId)
+        private HttpClient GetInitializedHttpClient()
         {
-            // TODO: http get /users/user/{userId}
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(Baseurl);
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //mock
-            var user = new {
-                id = userId,
-                login = "JanK",
-                firstName = "Adam",
-                lastName = "Nowak",
-                email = "nowak@gmail.com",
-                phone = "241215252",
-                permissions = new[] { new {id = 1, name="User", code = "USER" }, new { id = 2, name = "Admin", code = "ADMIN" } }
-            };
+            return client;
+        }
 
-            List<Permission> permissions = new List<Permission>();
-            foreach(var p in user.permissions)
+        [HttpGet]
+        public async Task<ActionResult> UserDetails(int userId)
+        {
+
+            UsersViewModel userModel = null;
+            var client = GetInitializedHttpClient();
+            var response = await client.GetAsync($"users/user/{userId}");
+            if (response.IsSuccessStatusCode)
             {
-                Permission permission = new Permission
-                {
-                    Id = p.id,
-                    Name = p.name,
-                    Code = p.code
-                };
-                permissions.Add(permission);
+                userModel = initializeUserModel(response);
             }
-
-            UsersViewModel userModel = new UsersViewModel
-            {
-                Id = user.id,
-                Login = user.login,
-                PhoneNo = user.phone,
-                LastName = user.lastName,
-                FirstName = user.firstName,
-                Email = user.email,
-                Permissions = permissions
-            };
 
             return View(userModel);
         }
 
-        public ActionResult Create()
+        private UsersViewModel initializeUserModel(dynamic response)
+        {
+                var message = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<dynamic>(message);
+                var user = result.body;
+                // TODO: http get /users/user/{userId}
+
+                List<Permission> permissions = new List<Permission>();
+                foreach (var p in user.permissions)
+                {
+                    Permission permission = new Permission
+                    {
+                        Id = p.id,
+                        Name = p.name,
+                        Code = p.code
+                    };
+                    permissions.Add(permission);
+                }
+
+                return new UsersViewModel
+                {
+                    Login = user.login,
+                    Id = user.id,
+                    PhoneNo = user.phone,
+                    LastName = user.lastName,
+                    FirstName = user.firstName,
+                    Email = user.email,
+                    Permissions = permissions
+                };
+        }
+
+        public async Task<ActionResult> Create()
         {
             return View();
         }
 
         // POST: users/user
+
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(UsersViewModel model) {
+
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                var client = GetInitializedHttpClient();
+                var permissions = Enumerable.Empty<dynamic>().ToList<dynamic>();
+                // foreach (var p in model.Permissions)
+                //{
+                // var permission = new
+                //{
+                //    id = p.Id,
+                //   Name = p.Name,
+                //  Code = p.Code
+                //};
+                //permissions.Add(permission);
+                //}
+                var user = new
+                {
+                    login = model.Login,
+                    firstName = model.FirstName,
+                    lastName = model.LastName,
+                    email = model.Email,
+                    phone = model.PhoneNo,
+                    password = model.Password
+                   // permissions = permissions
+                };
+                HttpResponseMessage message = await client.PostAsJsonAsync("users/user", user);
+                message.EnsureSuccessStatusCode();
+                ModelState.Clear();
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
-        public ActionResult Edit(int userId)
+        public async Task<ActionResult> Edit(int userId)
         {
-            // TODO: http get /users/user/{userId}
-
-            //mock
-            var user = new
+            
+            UsersViewModel userModel = null;
+            var client = GetInitializedHttpClient();
+            var response = await client.GetAsync($"users/user/{userId}");
+            if (response.IsSuccessStatusCode)
             {
-                id = userId,
-                login = "JanK",
-                firstName = "Adam",
-                lastName = "Nowak",
-                email = "nowak@gmail.com",
-                phone = "241215252",
-                permissions = new[] { new { id = 1, name = "User", code = "USER" }, new { id = 2, name = "Admin", code = "ADMIN" } }
-            };
-
-            List<Permission> permissions = new List<Permission>();
-            foreach (var p in user.permissions)
-            {
-                Permission permission = new Permission
-                {
-                    Id = p.id,
-                    Name = p.name,
-                    Code = p.code
-                };
-                permissions.Add(permission);
+                userModel = initializeUserModel(response);
             }
 
-            UsersViewModel userModel = new UsersViewModel
+            foreach (var p in userModel.Permissions)
             {
-                Id = user.id,
-                Login = user.login,
-                PhoneNo = user.phone,
-                LastName = user.lastName,
-                FirstName = user.firstName,
-                Email = user.email,
-                Permissions = permissions
-            };
-
+                if(p.Id == userPermission.Id)
+                {
+                    userModel.User = true;
+                }
+                if (p.Id == adminPermission.Id)
+                {
+                    userModel.Admin = true;
+                }
+            }
             return View(userModel);
         }
 
         // PUT: users/user
-        [HttpPut]
-        public ActionResult Edit(int id, FormCollection collection)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(UsersViewModel model)
         {
-            try
+            string userId = this.Request.QueryString["userId"];
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var client = GetInitializedHttpClient();
+                var permissions = Enumerable.Empty<dynamic>().ToList<dynamic>();
+              
+                if(model.User)
+                {
+                    permissions.Add(userPermission);
+                }
+                if(model.Admin)
+                {
+                    permissions.Add(adminPermission);
+                }
+                var user = new
+                {
+                    id = userId,
+                    login = model.Login,
+                    firstName = model.FirstName,
+                    lastName = model.LastName,
+                    email = model.Email,
+                    phone = model.PhoneNo,
+                    password = "123",
+                    permissions = permissions
+            };
+                var userJson = JsonConvert.SerializeObject(user);
+                HttpResponseMessage message = await client.PutAsJsonAsync("users/user", user);
+                message.EnsureSuccessStatusCode();
+                ModelState.Clear();
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
-  
-        public ActionResult Delete(int userId)
+
+        public async Task<ActionResult> Delete(int userId)
         {
             UsersViewModel userModel = new UsersViewModel
             {
@@ -175,20 +248,15 @@ namespace SGGWSupportWeb.Controllers
             return View(userModel);
         }
 
-        // DELETE: users/user/{userId}
-        [HttpDelete]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(UsersViewModel model)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string userId = this.Request.QueryString["userId"];
+            var client = GetInitializedHttpClient();
+            var response = await client.DeleteAsync($"users/user/{userId}");
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            return RedirectToAction("Index");
+        }        
     }
 }

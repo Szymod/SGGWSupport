@@ -38,5 +38,8 @@ namespace SGGWSupportWeb.Models
         [Display(Name = "Uprawnienia")]
         public List<Permission> Permissions { get; set; }
 
+        public Boolean Admin { get; set; }
+        public Boolean User { get; set; }
+
     }
 }
