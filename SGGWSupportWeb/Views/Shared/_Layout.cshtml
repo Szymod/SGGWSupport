@@ -49,9 +49,9 @@
                                         <li><a href="#">Uprawnienia</a></li>
                                         <li class="divider"></li>
                                         <li class="dropdown-header">Słowniki</li>
-                                        <li><a href="#">Kategorie</a></li>
-                                        <li><a href="#">Priorytety</a></li>
-                                        <li><a href="#">Statusy</a></li>
+                                        <li>@Html.ActionLink("Kategorie", "Index", "Category", new { area = "" }, new { })</li>
+                                        <li>@Html.ActionLink("Priorytety", "Index", "Priority", new { area = "" }, new { })</li>
+                                        <li>@Html.ActionLink("Statusy", "Index", "State", new { area = "" }, new { })</li>
                                     </ul>
                                 </li>
                                 <li>@Html.ActionLink("Zgłoszenia", "Index", "Ticket", new { area = "" }, new { })</li>

@@ -16,7 +16,7 @@
     <RootNamespace>SGGWSupportWeb</RootNamespace>
     <AssemblyName>SGGWSupportWeb</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -146,6 +146,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArchivalController.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DictionaryBaseController.cs" />
+    <Compile Include="Controllers\PriorityController.cs" />
+    <Compile Include="Controllers\StateController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Extensions\HttpClientExtensions.cs" />
@@ -162,6 +166,8 @@
     <Compile Include="Models\AuthorizeViewModels.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\PriorityViewModel.cs" />
+    <Compile Include="Models\BaseDictionaryViewModel.cs" />
+    <Compile Include="Models\StateViewModel.cs" />
     <Compile Include="Models\StatiscticsModel.cs" />
     <Compile Include="Models\TicketViewModel.cs" />
     <Compile Include="Models\UsersViewModel.cs" />
@@ -233,6 +239,15 @@
     <Content Include="Views\Users\UserDetails.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\State\Index.cshtml" />
+    <Content Include="Views\Priority\Index.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\State\Add.cshtml" />
+    <Content Include="Views\State\Edit.cshtml" />
+    <Content Include="Views\Category\Add.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Priority\Add.cshtml" />
+    <Content Include="Views\Priority\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

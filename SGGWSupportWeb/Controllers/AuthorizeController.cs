@@ -36,8 +36,21 @@ namespace SGGWSupportWeb.Controllers
                 if (message.ErrorCode == "0")
                 {
                     Session.SetToken(new UserIdentity() { Token = response.Headers.GetValues("X-AUTH-TOKEN").First() });
-                    FormsAuthentication.SetAuthCookie(model.Login, false);
-                    return RedirectToAction("Index", "Home");
+
+                    client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+                    var userResponse = await client.GetAsync("http://webservice.adscan.pl:8090/users/user");
+
+                    if (userResponse.IsSuccessStatusCode)
+                    {
+                        var userMessage = JsonConvert.DeserializeObject<APICurrentUser>(await userResponse.Content.ReadAsStringAsync());
+
+                        if (userMessage.ErrorCode == "0")
+                        {
+                            Session.SetCurrentUser(userMessage.Body);
+                            FormsAuthentication.SetAuthCookie(model.Login, false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
                 }
             }
             ModelState.AddModelError("", "Nieprawidłowy login lub hasło.");

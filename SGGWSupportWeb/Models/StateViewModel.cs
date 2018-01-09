@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SGGWSupportWeb.Models
 {
-    public class PriorityViewModel : BaseDictionaryViewModel
+    public class StateViewModel :BaseDictionaryViewModel
     {
     }
 }

@@ -29,5 +29,27 @@ namespace SGGWSupportWeb.Extensions
                 return filter;
             return default(UserIdentity);
         }
+
+        public static void SetCurrentUser(this HttpSessionStateBase session, CurrentUser token)
+        {
+            if (session == null)
+            {
+                return;
+            }
+            var context = HttpContext.Current;
+            var key = typeof(CurrentUser).ToString();
+            session.Add(key, token);
+        }
+
+        public static CurrentUser GetCurrentUser(this HttpSessionStateBase session)
+        {
+            var context = HttpContext.Current;
+            if (context == null || session == null)
+                return default(CurrentUser);
+            var filter = (CurrentUser)(session[typeof(CurrentUser).ToString()]);
+            if (filter != null)
+                return filter;
+            return default(CurrentUser);
+        }
     }
 }

@@ -29,7 +29,7 @@
                         <em>@Html.DisplayNameFor(model => model.Status)</em>
                     </th>
                     <th style="width:13%" class="text-center">
-                        <em>@Html.DisplayNameFor(model => model.TicketEditTime)</em>
+                        <em>@Html.DisplayNameFor(model => model.TicketAddTime)</em>
                     </th>
                     <th></th>
                 </tr>
@@ -45,7 +45,7 @@
                         @Html.DisplayFor(model => item.Status)
                     </td>
                     <td class="text-center">
-                        @Html.DisplayFor(model => item.TicketEditTime)
+                        @Html.DisplayFor(model => item.TicketAddTime)
                     </td>
                     <td class="text-right">
                         @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })

@@ -28,7 +28,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
                 <div>
-                    @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetNames(typeof(TicketStatus))), "Wybierz", new { @class = "form-control ticket-input" })
+                    @Html.DropDownListFor(model => model.Status.Id, ViewData["states"] as List<SelectListItem>, "Wybierz status", htmlAttributes: new { @class = "form-control ticket-input" })
                     @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                 </div>
             </div>

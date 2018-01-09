@@ -25,8 +25,7 @@ namespace SGGWSupportWeb.Controllers
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
 
                 HttpResponseMessage message = await client.GetAsync("tasks");
 
@@ -44,8 +43,10 @@ namespace SGGWSupportWeb.Controllers
         {
             List<CategoryViewModel> categories = new List<CategoryViewModel>();
             List<PriorityViewModel> priorities = new List<PriorityViewModel>();
+            List<StateViewModel> states = new List<StateViewModel>(); 
             List<SelectListItem> categoryList = new List<SelectListItem>();
             List<SelectListItem> priorityList = new List<SelectListItem>();
+            List<SelectListItem>  statesList = new List<SelectListItem>();
 
             using (var client = new HttpClient())
             {
@@ -70,17 +71,31 @@ namespace SGGWSupportWeb.Controllers
                     priorities = JsonConvert.DeserializeObject<List<PriorityViewModel>>(priorityResponse);
                 }
 
+                message = await client.GetAsync("statuses");
+
+                if (message.IsSuccessStatusCode)
+                {
+                    var statesResponse = message.Content.ReadAsStringAsync().Result;
+                    states = JsonConvert.DeserializeObject<List<StateViewModel>>(statesResponse);
+                }
+
                 foreach (var el in categories)
                 {
-                    categoryList.Add(new SelectListItem { Text = el.Name, Value = (el.id.ToString()) });
+                    categoryList.Add(new SelectListItem { Text = el.Name, Value = (el.Id.ToString()) });
                 }
 
                 foreach (var el in priorities)
                 {
-                    priorityList.Add(new SelectListItem { Text = el.Name, Value = (el.id.ToString()) });
+                    priorityList.Add(new SelectListItem { Text = el.Name, Value = (el.Id.ToString()) });
+                }
+
+                foreach (var el in states)
+                {
+                    statesList.Add(new SelectListItem { Text = el.Name, Value = (el.Id.ToString()) });
                 }
             }
 
+            ViewData["states"] = statesList;
             ViewData["categories"] = categoryList;
             ViewData["priorities"] = priorityList;
 
@@ -91,24 +106,29 @@ namespace SGGWSupportWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddTicket(TicketViewModel ticket)
         {
+            ModelState["Status.Name"].Errors.Clear();
+            ModelState["Priority.Name"].Errors.Clear();
+            ModelState["Category.Name"].Errors.Clear();
+
             if (ModelState.IsValid)
             {
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(Baseurl);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                
-                HttpResponseMessage message = await client.PostAsJsonAsync("tasks", ticket);
-                message.EnsureSuccessStatusCode();
+                using (HttpClient client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(Baseurl);
+                    client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
 
-                ModelState.Clear();
+                    ticket.UserData = Session.GetCurrentUser();
+                    ticket.TicketAddTime = DateTime.Now;
 
-                return RedirectToAction("Index", "Ticket");
+                    HttpResponseMessage message = await client.PostAsJsonAsync("tasks", ticket);
+                    message.EnsureSuccessStatusCode();
+                }
+
+                return RedirectToAction("Index");
             }
             else
             {
-                return RedirectToAction("Index", "Ticket");
+                return View(ticket);
             }
         }
 
