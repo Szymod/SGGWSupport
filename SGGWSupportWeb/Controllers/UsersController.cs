@@ -66,17 +66,6 @@ namespace SGGWSupportWeb.Controllers
             return View(users);
         }
 
-        private HttpClient GetInitializedHttpClient()
-        {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(Baseurl);
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            return client;
-        }
-
         [HttpGet]
         public async Task<ActionResult> UserDetails(int userId)
         {
@@ -133,21 +122,11 @@ namespace SGGWSupportWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(UsersViewModel model) {
-
+            
             if (ModelState.IsValid)
             {
                 var client = GetInitializedHttpClient();
-                var permissions = Enumerable.Empty<dynamic>().ToList<dynamic>();
-                // foreach (var p in model.Permissions)
-                //{
-                // var permission = new
-                //{
-                //    id = p.Id,
-                //   Name = p.Name,
-                //  Code = p.Code
-                //};
-                //permissions.Add(permission);
-                //}
+                var permissions = createPermissions(model);
                 var user = new
                 {
                     login = model.Login,
@@ -155,8 +134,8 @@ namespace SGGWSupportWeb.Controllers
                     lastName = model.LastName,
                     email = model.Email,
                     phone = model.PhoneNo,
-                    password = model.Password
-                   // permissions = permissions
+                    password = model.Password,
+                    permissions = permissions
                 };
                 HttpResponseMessage message = await client.PostAsJsonAsync("users/user", user);
                 message.EnsureSuccessStatusCode();
@@ -172,7 +151,6 @@ namespace SGGWSupportWeb.Controllers
 
         public async Task<ActionResult> Edit(int userId)
         {
-            
             UsersViewModel userModel = null;
             var client = GetInitializedHttpClient();
             var response = await client.GetAsync($"users/user/{userId}");
@@ -204,16 +182,7 @@ namespace SGGWSupportWeb.Controllers
             if (ModelState.IsValid)
             {
                 var client = GetInitializedHttpClient();
-                var permissions = Enumerable.Empty<dynamic>().ToList<dynamic>();
-              
-                if(model.User)
-                {
-                    permissions.Add(userPermission);
-                }
-                if(model.Admin)
-                {
-                    permissions.Add(adminPermission);
-                }
+                var permissions = createPermissions(model);
                 var user = new
                 {
                     id = userId,
@@ -222,10 +191,9 @@ namespace SGGWSupportWeb.Controllers
                     lastName = model.LastName,
                     email = model.Email,
                     phone = model.PhoneNo,
-                    password = "123",
+                    password = model.Password,
                     permissions = permissions
-            };
-                var userJson = JsonConvert.SerializeObject(user);
+                };
                 HttpResponseMessage message = await client.PutAsJsonAsync("users/user", user);
                 message.EnsureSuccessStatusCode();
                 ModelState.Clear();
@@ -257,6 +225,43 @@ namespace SGGWSupportWeb.Controllers
             var response = await client.DeleteAsync($"users/user/{userId}");
 
             return RedirectToAction("Index");
-        }        
+        }
+
+        private dynamic createPermissions(UsersViewModel model)
+        {
+            var permissions = Enumerable.Empty<dynamic>().ToList<dynamic>();
+
+            if (model.User)
+            {
+                permissions.Add(userPermission);
+            }
+            if (model.Admin)
+            {
+                permissions.Add(adminPermission);
+            }
+            var permissionsArray = new dynamic[permissions.Count];
+            for (int i = 0; i < permissions.Count; i++)
+            {
+                permissionsArray[i] = new
+                {
+                    id = permissions[i].Id,
+                    code = permissions[i].Code,
+                    name = permissions[i].Name
+                };
+            }
+
+            return permissionsArray;
+        } 
+
+        private HttpClient GetInitializedHttpClient()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(Baseurl);
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            return client;
+        }
     }
 }
