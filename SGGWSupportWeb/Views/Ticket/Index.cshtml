@@ -23,10 +23,10 @@
                         <em>@Html.DisplayNameFor(model => model.Title)</em>
                     </th>
                     <th style="width:13%" class="text-center">
-                        <em>@Html.DisplayNameFor(model => model.Priority)</em>
+                        <em>@Html.DisplayNameFor(model => model.Priority.Name)</em>
                     </th>
                     <th style="width:13%" class="text-center">
-                        <em>@Html.DisplayNameFor(model => model.Status)</em>
+                        <em>@Html.DisplayNameFor(model => model.Status.Name)</em>
                     </th>
                     <th style="width:13%" class="text-center">
                         <em>@Html.DisplayNameFor(model => model.TicketAddTime)</em>
@@ -48,7 +48,7 @@
                         @Html.DisplayFor(model => item.TicketAddTime)
                     </td>
                     <td class="text-right">
-                        @Html.ActionLink("Edytuj", "EditTicket", null, new { @class = "btn ticket-btn btn-success" })
+                        @Html.ActionLink("Edytuj", "EditTicket", new { id = item.Id }, new { @class = "btn ticket-btn btn-success" })
                         @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
                     </td>
                 </tr>
