@@ -240,9 +240,48 @@ namespace SGGWSupportWeb.Controllers
             }
         }
 
-        public ActionResult DeleteTicket()
+        public async Task<ActionResult> DeleteTicket(int? id)
         {
-            return View();
+            TicketViewModel ticket = new TicketViewModel();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+
+                HttpResponseMessage message = await client.GetAsync("tasks/" + id);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    var ticketResponse = message.Content.ReadAsStringAsync().Result;
+                    ticket = JsonConvert.DeserializeObject<TicketViewModel>(ticketResponse);
+                }
+
+            }
+
+            ViewBag.Id = id.ToString();
+
+            return PartialView("_DeleteTicket", ticket);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteTicket(int id)
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+
+                HttpResponseMessage message = await client.DeleteAsync("tasks/" + id);
+                message.EnsureSuccessStatusCode();
+
+            }
+
+            return RedirectToAction("Index");
+
         }
 
         public ActionResult TicketDetails()

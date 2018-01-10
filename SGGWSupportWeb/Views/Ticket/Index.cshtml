@@ -50,6 +50,7 @@
                     <td class="text-right">
                         @Html.ActionLink("Edytuj", "EditTicket", new { id = item.Id }, new { @class = "btn ticket-btn btn-success" })
                         @Html.ActionLink("Szczegóły", "TicketDetails", null, new { @class = "btn ticket-btn btn-primary" })
+                        <button class="show-btn btn ticket-btn btn-danger" data-url='@Url.Action("DeleteTicket", "Ticket", new { id = item.Id })'>Usuń</button>
                     </td>
                 </tr>
 
@@ -60,3 +61,32 @@
         </div>
    
 </div>
+
+<div id='myModal' class='modal fade' role="dialog">
+    <div class='modal-dialog'>
+        <div id="container" class="modal-content">
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+<script>
+    $(document).ready(function () {
+    $(".show-btn").click(function () {
+    var url = $(this).data('url');
+
+    $.get(url, function (data) {
+    $('#container').html(data);
+
+    $('#myModal').modal(
+    {
+    backdrop: 'static',
+    keyboard: false
+    });
+    $('#myModal').modal('show');
+    });
+    });
+    });
+</script>
+    }
