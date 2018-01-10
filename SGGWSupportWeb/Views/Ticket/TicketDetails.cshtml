@@ -1,60 +1,115 @@
 ﻿@model SGGWSupportWeb.Models.TicketViewModel
 
 @{
-    ViewBag.Title = "Zgłoszenie nr";
+    ViewBag.Title = "Edycja zgłoszenia";
 }
 
-<h2><i>Zgłoszenie nr 1001</i></h2>
+<h2><i>Zgłoszenie nr @ViewBag.Id</i></h2>
 
-<div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <dd>
-            
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control ticket-input", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
 
-        <dd>
-           
-        </dd>
+        <div class="col-xs-4 text-center">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.Status.Name, new { htmlAttributes = new { @class = "form-control ticket-input", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
+        <div class="col-xs-4 text-center">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label" })
+                <div>
+                   @Html.EditorFor(model => model.Priority.Name, new { htmlAttributes = new { @class = "form-control ticket-input", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 text-center">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label" })
+                <div>
+                    @Html.EditorFor(model => model.Category.Name, new { htmlAttributes = new { @class = "form-control ticket-input", @disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
 
-        <dd>
-            
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+            <div>
+                @Html.TextAreaFor(model => model.Description, new { @rows = 5, @class = "form-control ticket-textarea", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-        <dd>
-           
-        </dd>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <b>Komentarze</b>
+            </div>
+            <div class="panel-body">
+                <div style="border-radius:2px;">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="border:1px solid #cccccc">Przykładowy komentarz</td>
+                        </tr>
+                    </table>
+                </div>
+                <br /><br />
+                <div>
+                    @Html.Editor("comment", new { htmlAttributes = new { @id = "comment", @class = "form-control ticket-comment-input comment-input" } })
+                    <button class="btn btn-success" onclick="addComment(); return false;">Dodaj komentarz</button>
+                </div>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketAddTime)
-        </dt>
 
-        <dd>
-           
-        </dd>
 
-    </dl>
-</div>
-<div class="form-group">
-    <div class="col-md-offset-10">
-        @Html.ActionLink("Powrót", "Index", "Home", null, new { @class = "btn btn-default" })
+        <div class="form-group">
+            <div class="col-md-offset-11">
+                @Html.ActionLink("Powrót", "Index", "Home", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
     </div>
-</div>
-   
+
+
+
+}
+
+@section scripts {
+
+    <script type="text/javascript">
+        function addComment() {
+            var newComment = document.getElementById('comment').value;
+
+            var table = document.getElementsByTagName('table')[0];
+            var newRow = table.insertRow(1);
+            var col1 = newRow.insertCell(0);
+
+            col1.innerHTML = newComment;
+
+            newRow.style.border = "1px solid";
+            col1.style.borderRadius = "4px";
+
+        };
+    </script>
+
+}

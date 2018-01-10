@@ -284,12 +284,32 @@ namespace SGGWSupportWeb.Controllers
 
         }
 
-        public ActionResult TicketDetails()
+        public async Task<ActionResult> TicketDetails(int? id)
         {
-            return View();
+            TicketViewModel ticket = new TicketViewModel();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Add("X-AUTH-TOKEN", Session.GetToken().Token);
+
+                HttpResponseMessage message = await client.GetAsync("tasks/" + id);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    var ticketResponse = message.Content.ReadAsStringAsync().Result;
+                    ticket = JsonConvert.DeserializeObject<TicketViewModel>(ticketResponse);
+                }
+
+            }
+
+            ViewBag.Id = id.ToString();
+
+            return View(ticket);
+
         }
 
-        
+
 
     }
 }

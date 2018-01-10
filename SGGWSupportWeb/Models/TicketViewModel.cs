@@ -10,7 +10,6 @@ namespace SGGWSupportWeb.Models
 {
     public class TicketViewModel
     {
-        [Display(Name = "Numer")]
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
